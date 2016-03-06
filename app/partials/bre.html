@@ -14,7 +14,7 @@
                 <ul>
                     <li>promotions:</li>
                     <li ng-repeat="addon in vm.model.addons.promotions">
-                        <label><ops-checkbox data-model="addon"></ops-checkbox>{{addon.name}}</label>
+                        <label><ops-checkbox ng-model="vm.addon"></ops-checkbox>{{vm.addon.name}}</label>
                     </li>
                 </ul>
                 <ul>
