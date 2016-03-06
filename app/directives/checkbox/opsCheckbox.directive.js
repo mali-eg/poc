@@ -31,7 +31,10 @@
                 },
                 transclude: true,
                 link: function (scope, elem, attrs) {
-                    scope.$watch()
+                    scope.innerModel = scope.ngModel.value;
+                    scope.$watch('innerModel',function(newVal,oldVal){
+                        debugger;
+                    });
                 }
             }
         }])

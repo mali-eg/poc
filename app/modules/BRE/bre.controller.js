@@ -8,5 +8,10 @@
         var vm = this;
         vm.model = breService.getAddons();
         vm.name = "hello";
+
+        vm.addon = {
+        	name:"addonName",
+        	value:true
+        }
     }
 })();
