@@ -26,7 +26,6 @@
                     }
                 }
 
-
                return model;
             }
 
@@ -34,7 +33,7 @@
                 var group = [];
                 var groupIndex = _.findIndex(entities.containers, function(o) { return o.name == groupName; });
                 _.forEach(entities.containers[groupIndex].entities, function(obj) {
-                    //fetch CMS and vlux data
+                    //fetch CMS and VLUX data
                     var addon = {
                         name: obj.name,
                         label: obj.name, //to be replaced by CMS labels
