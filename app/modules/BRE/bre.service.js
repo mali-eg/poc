@@ -20,7 +20,7 @@
                 //construct the model structure
                 var model = {
                     addonTypes:{},
-                        addons:{
+                    addons:{
                         promotions:getAddonGroup('promotion', entities),
                         discounts:getAddonGroup('discount', entities)
                     }

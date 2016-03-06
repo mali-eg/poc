@@ -2,7 +2,7 @@
     'use strict';
 
     var directiveName = "opsCheckbox",
-        tplUrl = '../../assets/js/angular-onepos/widgets/checkbox/opsCheckbox.tpl.html';
+        tplUrl = 'directives/checkbox/opsCheckbox.tpl.html';
 
     /**
      * @ngdoc directive
@@ -14,7 +14,7 @@
      */
 
     angular
-        .module('onePOS.widgets')
+        .module('myApp')
         .directive(directiveName, [function () {
             return{
                 templateUrl:tplUrl,
@@ -23,12 +23,16 @@
                     innerId: '@',
                     ngModel: '=',
                     label: '@?',
+                    dataModel : '=',
                     name: '@?'/*,
                     ngChange: '=?',
                     ngInit: "@?",
                     ngDisabled: "=?"*/
                 },
-                transclude: true
+                transclude: true,
+                link: function (scope, elem, attrs) {
+                    scope.$watch()
+                }
             }
         }])
 })();
