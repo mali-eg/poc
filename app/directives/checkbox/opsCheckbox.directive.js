@@ -15,25 +15,17 @@
 
     angular
         .module('myApp')
-        .directive(directiveName, [function () {
+        .directive(directiveName, ['$parse','$rootScope',function ($parse,$rootScope) {
             return{
                 templateUrl:tplUrl,
                 restrict:'AE',
-                scope:{
-                    innerId: '@',
-                    ngModel: '=',
-                    label: '@?',
-                    dataModel : '=',
-                    name: '@?'/*,
-                    ngChange: '=?',
-                    ngInit: "@?",
-                    ngDisabled: "=?"*/
-                },
+                scope: true,
                 transclude: true,
                 link: function (scope, elem, attrs) {
-                    scope.innerModel = scope.ngModel.value;
+                    scope.innerModel = $parse(attrs.ngModel)(scope).value;
+                    var name =  $parse(attrs.ngModel)(scope).name;
                     scope.$watch('innerModel',function(newVal,oldVal){
-                        debugger;
+                        $rootScope[name]=newVal;
                     });
                 }
             }

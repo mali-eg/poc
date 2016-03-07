@@ -37,7 +37,7 @@
                     var addon = {
                         name: obj.name,
                         label: obj.name, //to be replaced by CMS labels
-                        value: ''
+                        value: true
                     }
                     group.push(addon);
                 });

@@ -2,22 +2,19 @@
     "use strict";
     angular
         .module("myApp")
-        .controller("rootCtrl", ['ruleEngineService', '$scope', rootCtrl]);
+        .controller("rootCtrl", ['ruleEngineService', '$rootScope', rootCtrl]);
 
-    function rootCtrl(ruleEngineService, $scope){
+    function rootCtrl(ruleEngineService, $rootScope){
         var entities = ruleEngineService.getEntities();
 
         _.forEach(entities.entities, function(obj) {
-            //fetch CMS and VLUX data
-           $scope[obj.name]='';
+            $rootScope[obj.name]='';
         });
 
         _.forEach(entities.containers, function(obj, key) {
             _.forEach(entities.containers[key].entities, function(obj) {
-                $scope[obj.name]='';
+                $rootScope[obj.name]='';
             });
         });
-
-        console.log($scope);
     }
 })();
