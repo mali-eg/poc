@@ -3,9 +3,9 @@
 
     angular
         .module('myApp')
-        .factory('ruleEngineService', [ruleEngineService]);
+        .factory('ruleEngineService', ['flatedModel',ruleEngineService]);
 
-    function ruleEngineService() {
+    function ruleEngineService(flatedModel) {
 
         var entities = {
             "entities":[
@@ -314,7 +314,15 @@
             }
 
             function getEntities(){
+                _.forEach(entities.entities, function(obj) {
+                    flatedModel[obj.name]='';
+                });
 
+                _.forEach(entities.containers, function(obj, key) {
+                    _.forEach(entities.containers[key].entities, function(obj) {
+                        flatedModel[obj.name]='';
+                    });
+                });
                 return entities;
             }
 
