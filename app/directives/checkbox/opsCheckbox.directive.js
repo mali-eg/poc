@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     var directiveName = "opsCheckbox",
@@ -15,30 +15,39 @@
 
     angular
         .module('myApp')
-        .directive(directiveName, ['$parse','$rootScope', 'ruleEngineService','flatedModel',function ($parse,$rootScope, ruleEngineService, flatedModel) {
-            return{
-                templateUrl:tplUrl,
-                restrict:'AE',
-                scope: true,
-                transclude: true,
-                link: function (scope, elem, attrs) {
-                    var ngModel = $parse(attrs.ngModel)(scope);
-                    ngModel.ruleFunction = "AnotherPromo == true";
-                    scope.innerModel = ngModel.value;
-                    var name =  $parse(attrs.ngModel)(scope).name;
+        .directive(directiveName, ['$parse', '$rootScope', 'ruleEngineService', 'flatedModel',
+            function($parse, $rootScope, ruleEngineService, flatedModel) {
+                return {
+                    templateUrl: tplUrl,
+                    restrict: 'AE',
+                    scope: true,
+                    transclude: true,
+                    link: function(scope, elem, attrs) {
 
-                    scope.$watch('innerModel',function(newVal,oldVal){
-                        flatedModel[name]=newVal;
-                    });
+                        // handle the directive creation
+                        // needs a refactor to get the data from ng model controller
+                        var ngModel = $parse(attrs.ngModel)(scope);
+                        scope.innerModel = ngModel.value;
 
-                    //function test(){
-                    //    return eval(ngModel.ruleFunction);
-                    //}
-                    // var boundedFun = test.bind(flatedModel, ngModel.ruleFunction);
-                    scope.disabled = function(){
-                        return $parse(ngModel.ruleFunction)(flatedModel);
-                    };
+                        // rule based logic
+                        // TODO: handling the other types of the validation
+                        var name = $parse(attrs.ngModel)(scope).name;
+                        var rules = ruleEngineService.getRules(name);
+                        // TODO-ref: handles multiple rules
+
+
+                        scope.$watch('innerModel', function(newVal, oldVal) {
+                            flatedModel.updateEntity(name, newVal);
+                        });
+
+                        scope.disabled = function() {
+                            if (rules && rules.enabled.rules.length > 0) {
+                                return $parse(rules.enabled.rules[0].condition)(flatedModel.currentModel);
+                            }
+                            return false;
+                        };
+                    }
                 }
             }
-        }])
+        ])
 })();

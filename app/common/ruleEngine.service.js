@@ -303,13 +303,14 @@
             }
 
             function getEntities(){
+                flatedModel.newModel();
                 _.forEach(entities.entities, function(obj) {
-                    flatedModel[obj.name]='';
+                    flatedModel.currentModel[obj.name]='';
                 });
 
                 _.forEach(entities.containers, function(obj, key) {
                     _.forEach(entities.containers[key].entities, function(obj) {
-                        flatedModel[obj.name]='';
+                        flatedModel.currentModel[obj.name]='';
                     });
                 });
                 return entities;
