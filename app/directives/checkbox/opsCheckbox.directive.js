@@ -15,7 +15,7 @@
 
     angular
         .module('myApp')
-        .directive(directiveName, ['$parse','$rootScope','flatedModel',function ($parse,$rootScope, flatedModel) {
+        .directive(directiveName, ['$parse','$rootScope', 'ruleEngineService','flatedModel',function ($parse,$rootScope, ruleEngineService, flatedModel) {
             return{
                 templateUrl:tplUrl,
                 restrict:'AE',
@@ -24,15 +24,16 @@
                 link: function (scope, elem, attrs) {
                     var ngModel = $parse(attrs.ngModel)(scope);
                     ngModel.ruleFunction = "AnotherPromo == true";
-                    scope.innerModel = ngModel.value
+                    scope.innerModel = ngModel.value;
                     var name =  $parse(attrs.ngModel)(scope).name;
+
                     scope.$watch('innerModel',function(newVal,oldVal){
                         flatedModel[name]=newVal;
                     });
 
-                    function test(){
-                        return eval(ngModel.ruleFunction);
-                    }
+                    //function test(){
+                    //    return eval(ngModel.ruleFunction);
+                    //}
                     // var boundedFun = test.bind(flatedModel, ngModel.ruleFunction);
                     scope.disabled = function(){
                         return $parse(ngModel.ruleFunction)(flatedModel);
