@@ -3,16 +3,16 @@
 
     angular
         .module('myApp')
-        .factory('breService', ['ruleEngineService', 'modelFactory', breService]);
+        .factory('breService', ['modelBuilder', breService]);
 
-    function breService(ruleEngineService, modelFactory) {
+    function breService( modelBuilder) {
         return {
             getAddons: getAddons
         }
 
         function getAddons() {
             //construct the model structure
-            var model = modelFactory.getModel('AddOns');
+            var model = modelBuilder.getAddOns();
             return model;
         }
     }

@@ -3,30 +3,26 @@
 
     angular
         .module('myApp')
-        .factory('modelFactory', [modelFactory]);
+        .factory('modelBuilder', ['ruleEngineService', modelBuilder]);
 
-    function modelFactory() {
+    function modelBuilder(ruleEngineService) {
         return {
-            getModel: getModel
+            getAddOns: getAddOns
         }
 
-        function getModel(modelName) {
-            var entities = ruleEngineService.getEntities();
-
-            var model = {};
-            if (modelName === 'AddOns') {
-                model = {
-                    addonTypes: {},
-                    addons: {
-                        promotions:[] ,
-                        discounts: []
-                    }
+        function getAddOns() {
+            var model = {
+                addonTypes: {},
+                addons: {
+                    promotions: getAddonGroup('promotion'),
+                    discounts: getAddonGroup('discount')
                 }
             }
             return model;
         }
 
-        function getAddonGroup(groupName, entities) {
+        function getAddonGroup(groupName) {
+            var entities = ruleEngineService.getEntities();
             var group = [];
             var groupIndex = _.findIndex(entities.containers, function (o) {
                 return o.name == groupName;
