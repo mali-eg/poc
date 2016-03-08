@@ -9,9 +9,4 @@
         vm.model = breService.getAddons();
         vm.name = "hello";
     }
-
-    _.forEach(entities.containers[groupIndex].entities, function(obj) {
-        $scope[entities[i].name] = ''
-    });
-
 })();

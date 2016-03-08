@@ -13,11 +13,15 @@
             <div class="form-group">
                 <ul>
                     <li>promotions:</li>
-                    <li ng-repeat="addon in vm.model.addons.promotions"><label><input type="checkbox" requre> {{addon.name}}</label></li>
+                    <li ng-repeat="addon in vm.model.addons.promotions">
+                        <label><ops-checkbox ng-model="addon"></ops-checkbox>{{addon.name}}</label>
+                    </li>
                 </ul>
                 <ul>
                     <li>discounts:</li>
-                    <li ng-repeat="addon in vm.model.addons.discounts"><label><input type="checkbox"> {{addon.name}}</label></li>
+                    <li ng-repeat="addon in vm.model.addons.discounts">
+                        <label><ops-checkbox ng-model="addon"></ops-checkbox>{{addon.name}}</label>
+                    </li>
                 </ul>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>

@@ -3,9 +3,9 @@
 
     angular
         .module('myApp')
-        .factory('ruleEngineService', [ruleEngineService]);
+        .factory('ruleEngineService', ['flatedModel',ruleEngineService]);
 
-    function ruleEngineService() {
+    function ruleEngineService(flatedModel) {
 
         var entities = {
             "entities":[
@@ -262,47 +262,36 @@
         var rules = {
                 "items": [
                     {
-                        "name": "IBAN",
-                        "editable": {
-                            "rules": [
-                                {
-                                    "type": "static",
-                                    "defaultValue": "true"
-                                }
-                            ]
-                        },
+                        "name": "Discount1",
+                        "enabled": {
+                        "rules": [
+                            {
+                                "type": "rulebased",
+                                "condition": "Startguthaben==true",
+                                "returnedValue": "True"
+                            }]
+                        }
+                    },
+                    {
+                        "name": "Discount2",
                         "enabled": {
                             "rules": [
                                 {
-                                    "type": "static",
-                                    "defaultValue": "true"
-                                }
-                            ]
-                        },
-                        "mandatory": {
+                                    "type": "rulebased",
+                                    "condition": "AnotherPromo==true",
+                                    "returnedValue": "True"
+                                }]
+                        }
+                    },
+                    {
+                        "name": "Discount3",
+                        "enabled": {
                             "rules": [
                                 {
                                     "type": "rulebased",
-                                    "condition": "OrderType==Activation",
+                                    "condition": "OneMorePromo==true",
                                     "returnedValue": "True"
-                                }
-                            ]
-                        },
-                        "visible": {
-                            "rules": [
-                                {
-                                    "type": "static",
-                                    "defaultValue": "true"
-                                }
-                            ]
-                        },
-                        "validate": {
-                            "rules": [
-                                {
-                                    "type": "regex",
-                                    "condition": "^[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}$"
-                                }
-                            ]
+                                }]
                         }
                     }
                 ]
@@ -314,7 +303,15 @@
             }
 
             function getEntities(){
+                _.forEach(entities.entities, function(obj) {
+                    flatedModel[obj.name]='';
+                });
 
+                _.forEach(entities.containers, function(obj, key) {
+                    _.forEach(entities.containers[key].entities, function(obj) {
+                        flatedModel[obj.name]='';
+                    });
+                });
                 return entities;
             }
 
