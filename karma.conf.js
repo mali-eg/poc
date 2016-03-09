@@ -18,6 +18,7 @@ module.exports = function (config) {
             'lib/angular.js',
             'lib/angular-mocks.js',
             'lib/angular-ui-router.js',
+            'lib/lodash.js',
             'app/app.js',
             'app/**/*.service.js',
              'app/test/*.js'
