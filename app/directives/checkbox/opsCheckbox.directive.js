@@ -24,6 +24,7 @@
                     transclude: true,
                     link: function(scope, elem, attrs) {
 
+                        scope.validationMessage='';
                         // handle the directive creation
                         // needs a refactor to get the data from ng model controller
                         var ngModel = $parse(attrs.ngModel)(scope);
@@ -45,6 +46,9 @@
                                 return $parse(rules.enabled.rules[0].condition)(flatedModel.currentModel);
                             }
                             return false;
+                        };
+                        scope.onLostFocus = function () {
+                            scope.validationMessage = "This is error";
                         };
                     }
                 }

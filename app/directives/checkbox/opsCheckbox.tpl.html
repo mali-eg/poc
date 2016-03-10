@@ -6,9 +6,11 @@
         name="{{name}}"
         ng-model="innerModel"
         ng-disabled="disabled()"
-        class="field"
+        class="field",
+        ng-blur="onLostFocus()"
         />
     <label for="{{innerId}}">
         {{label}}
     </label>
+    <p class="error-txt">{{validationMessage}}</p>
 </div>
